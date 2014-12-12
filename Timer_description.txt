@@ -1,0 +1,19 @@
+Configuring the time base
+
+register that control the TIMx_PSC
+
+set to 1ms tick 
+	so if the main clock is set at 16Mhz, the divisor should be set at 16000 to get a 1ms tick  and 16 to 1us tick
+
+divisor value = prescaler +1
+ 
+
+ tick period	precaler
+ 1ms 			15999
+
+ 1us 			15
+
+
+
+
+

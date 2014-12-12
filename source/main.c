@@ -21,14 +21,33 @@ int main(){
 void timer2_config(void){
 	RCC->APB1ENR|=(0x1);//Enable TIM2
 	
+	//configure timer 
+	TIM2->CR1=0;
+	TIM2->PSC=(unsigned short)15999;//freq div by 1600
+	TIM2->CR1|=((0x0<<8)//CKD 00: tds=tcd_int/1
+						|(0x0<<7)//ARPE 0: TIMxARR is not buffered
+						|(0x0<<5)//CMS don't care
+						|(0x0<<4)//DIR 0:counter is used upcounter
+						|(0x1<<3)//OPM 1:Counter stop counting ar the next update event
+						|(0x1<<2)//URS 1:Only overflows/ubdeflow generate an update interrupt
+						|(0x0<<1)//UDIS 0:Update events enabled
+						|(0x0<<0)//CEN 0:Counter disabled;
+							);
 }
 
 
 
 void timer2_delay_ms(int delay_time){
+	/*
 	int i;
 	for(i=0;i<(delay_time*0xFFF);i++){
 	}
+	*/
+	TIM2->CNT=0;
+	TIM2->ARR=(delay_time-1);//set overflow value
+	TIM2->SR=0;//clear event flags
+	TIM2->CR1|=(0x1<<0);//enable counter 
+	while(((TIM2->SR)&0x1)==0);//wait for overflow event
 }
 
 void led_config(void){
