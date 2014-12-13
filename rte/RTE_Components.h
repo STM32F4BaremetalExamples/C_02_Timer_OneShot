@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Component Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'C_02_Timer_STM32F4' 
+ * Project: 'C_02_Timer_OneShot' 
  * Target:  'Target 1' 
  */
 
